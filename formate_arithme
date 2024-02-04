@@ -1,0 +1,31 @@
+def arithmetic_arranger(expressions):
+    list_expression = []
+
+    for expression in expressions:
+        converted_results = []
+        result_exp = eval(expression) # Somando/Subtraindo da expressão
+        print(f'{expression} = {result_exp}')
+
+        for caracter in expression.split():
+            if caracter.find('+') and caracter.find('-') == -1:
+                converted_results.append(caracter)
+            else:
+                op = caracter
+                converted_results.append(op)
+        list_expression.append(converted_results)
+
+    return list_expression
+
+def print_exp(lista):
+    op = ''
+    for i in lista:
+        for j in range(1):
+            print(f'''
+              {i[0]}
+            {i[1]} {i[2]}''')
+            print('----------------------')
+    return 'ta indoo'
+
+lista = arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"])
+print(lista)
+print(print_exp(lista))
