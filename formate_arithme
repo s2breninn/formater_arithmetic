@@ -1,47 +1,40 @@
-def arithmetic_arranger(expressions):
-    list_expression = []
-
-    for expression in expressions:
-        converted_results = []
+def arithmetic_arranger(problem):
+    list_exp = []
+    for expression in problem:
+        list_values = []
         for caracter in expression.split():
-            if caracter.isdigit():
-                caracter = int(caracter)
-            converted_results.append(caracter)
-        list_expression.append(converted_results)
-    return list_expression
+            list_values.append(caracter)
+        list_exp.append(list_values)
+    return list_exp
 
-def calculate_express(list_expression):
-    list_op = []
-    for expression in list_expression:
-        nums = []
-        op = ''
+def cal_exp(problem_sep):
+    list_numbers = []
+    for i in problem_sep:
+        numbers = []
+        for j in i:
+            numbers.append(j if not j.isdigit() else int(j))
+            if len(numbers) == 3:
+                if numbers[1] == '+':
+                    result = numbers[0] + numbers[2]
+                    numbers.append(result)
+                if numbers[1] == '-':
+                    result = numbers[0] - numbers[2]
+                    numbers.append(result)
+        list_numbers.append(list(map(str, numbers)))
+    return list_numbers
 
-        for algoritmo in expression:
-            if algoritmo not in ['+', '-']:
-                nums.append(algoritmo)
-                if len(nums) == 2:
-                    if op == '+':
-                        result = nums[0] + nums[1]
-                        expression.append(result)
-                        nums = []
-                    if op == '-':
-                        result = nums[0] - nums[1]
-                        expression.append(result)
-                        nums = []
-            else:
-                op = algoritmo
-                list_op.append(op)
-
-    return list_expression, list_op
-
-def print_exp(calculate_express, list_op):
-    for val in calculate_express:
-        for algoritmo in val:
-            u = algoritmo.find('+')
-            print(u)
+def print_exp(calc_expressions):
+    lines = [""] * 4  # Inicializa uma lista de strings vazias para armazenar cada linha
+    for expression in calc_expressions:
+        lines[0] += f'{expression[0]:>6}        '  # Adiciona o primeiro número à primeira linha
+        lines[1] += f'{expression[1]:}{expression[2]:>5}        '  # Adiciona o operador e o segundo número à segunda linha
+        lines[2] += '------         '  # Adiciona o traço à terceira linha
+        lines[3] += f'{expression[3]:>6}        '  # Adiciona o resultado à quarta linha
+    for line in lines:
+        print(line)
 
 
-lista = arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"])
-calculate_express, list_op = calculate_express(lista)
-print_exp(calculate_express, list_op)
-print(calculate_express, list_op)
+if __name__ == '__main__':
+    problem_sep = arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"])
+    calc_expressions = cal_exp(problem_sep)
+    print_expression = print_exp(calc_expressions)
